@@ -1,0 +1,194 @@
+::Day2
+
+1) awk:To work with files and print specific parts like columns.
+example:
+shiro.csv
+name,age,city
+anne,25,New York
+ben,30,Los Angeles
+clara,22,Boston
+
+awk -F, '{print $1}' xyz.csv
+
+output:
+name
+anne
+ben
+clara
+
+explanation:
+awk: The command-line tool used for text processing and pattern scanning. It processes files line by line, splitting them into fields (columns), and allows you to perform actions on those fields.
+
+'{print $1}': This is the awk program (a short script) that specifies what to do with the input:
+
+$1: Refers to the first field (column) of each line. In awk, fields are indexed starting from $1 (first field), $2 (second field), etc. The fields are separated by a delimiter (e.g., space, tab, or comma).
+
+print $1: Tells awk to print the first field of each line.
+
+2)sed:For tasks like replacing or deleting text in files.
+
+   i) replace 
+     sed 's/old_text/new_text/' filename
+
+   example: To replace the word "apple" with "banana" in a file called fruit.txt
+   sed 's/apple/banana/' fruit.txt
+
+output: 
+::before replace
+I have an apple.
+
+::after replace
+I have an banana.
+
+  ii) delete (d)
+  Example: To delete the second line of a file
+   
+  sed '2d' file.txt
+  
+  output:
+  ::before delete
+	Line 1
+	Line 2
+	Line 3
+	
+	::after delete
+	Line 1
+	Line 3
+	
+	
+3) find: Find files in a specific location.
+  
+  find /home/user -name "file.txt"
+
+4) ls -a:See all files, even the hidden ones.
+ ls: Lists the files and directories in the current directory.
+
+-a: The -a option stands for "all" and includes hidden files (those that start with a dot .) in the listing
+
+ 
+ 
+ vi abc.txt   Open a file to create or edit it.
+ more abc.txt View the file one screen at a time.
+
+less abc.txt View the file and scroll up or down.
+
+file permision 
+chmod command
+4 = Read-only 
+
+5 = Read and execute 
+
+6 = Read and write 
+
+7 = Read, write, and execute 
+
+The first digit represents the owner's permissions.
+
+The second digit represents the group's permissions.
+
+The third digit represents the others' permissions.
+
+example  chmod 755 abc.txt
+Owner: Full access (read, write, execute).
+
+Group:  Can read and execute.
+
+Others: Can read and execute.
+ls -ltr
+
+ls: Lists files and directories in the current directory.
+
+-l: Displays detailed info.
+
+-t: Sort by recent changes.
+
+-r: Reverse the order.
+
+::csv file:
+A CSV (Comma-Separated Values) Text file where columns are separated by commas.
+::example csv file content named xyz.csv 
+name,age,city
+John,25,New York
+Alice,30,Los Angeles
+Bob,22,Boston
+
+cut -d',' -f1,2 xyz.csv
+output:
+name
+John
+Alice
+Bob
+
+Explantion:
+-d as delimiter:
+
+In tools like cut or awk, -d is used to specify the delimiter that separates fields in a text file. For example, in a CSV file, the delimiter is usually a comma (,).
+
+-f1 as field:
+
+-f1 is used to specify the field number. For example, -f1 means you want to extract the first field from each line of the file.
+
+here,
+-d',': Specifies that the delimiter is a comma (,), which is standard for CSV files.
+
+-f1: Extracts the first field (i.e., name in this case).
+
+
+::display the first 3 lines of the xyz.csv file
+
+head -3 xyz.csv
+
+output:
+name,age,city
+John,25,New York
+Alice,30,Los Angeles
+
+
+explanation: 
+head: The head command is used to display the beginning of a file.
+
+-3: This option specifies that you want to display the first 3 lines of the file.
+
+
+::display the last 2 lines of the xyz.csv file.
+
+output:
+Bob,22,Boston
+Eve,28,Chicago
+
+explanation:
+tail: The tail command is used to display the end of a file.
+
+-2: This option specifies that you want to display the last 2 lines of the file.
+
+::extract the first and second fields (columns) from the CSV file and save the output to a new file or the same files
+
+cut -d, -f1,2 xyz.csv > new_xyz.csv
+
+output:
+will result in a new_xyz.csv with the following content:
+name,age
+John,25
+Alice,30
+Bob,22
+
+Explanation:
+cut -d, -f1,2: Extracts the first and second fields (columns) from xyz.csv, using a comma as the delimiter.
+
+>: Redirects the output to a file. This can be a new file or overwrite the original file if handled carefully.
+
+
+::How to find number of columns with using command 
+
+awk -F, '{print NF; exit}' xyz.csv
+
+output: 3
+
+
+Explantion:
+
+-F,: Sets the field delimiter to a comma.
+
+{print NF; exit}: Prints the number of fields (NF) in the first line and then exits, which gives the number of columns in the first row.
+
+
